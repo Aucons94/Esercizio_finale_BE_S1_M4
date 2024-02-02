@@ -16,8 +16,8 @@ namespace Esercizio_finale_BE_S1_M4
         public string DataNascita { get; set; }
         public string CodiceFiscale { get; set; }
         public string Sesso { get; set; }
-        public string Residenza { get; set; }
-        public double Reddito { get; set; }
+        public string ComuneResidenza { get; set; }
+        public double RedditoAnnuale { get; set; }
         public double ImpostaDovuta { get; set; }
 
 
@@ -50,7 +50,7 @@ namespace Esercizio_finale_BE_S1_M4
                     case "NON BINARIO":
                         break;
                     default:
-                        Console.WriteLine("Scelta non valida. Inserire M per Maschio, F per Femmina o Non binario.");
+                        Console.WriteLine("\n" + "Scelta non valida. Inserire M per Maschio, F per Femmina o Non binario." + "\n" );
                         break;
                 }
             } while (inputSesso != "M" && inputSesso != "F" && inputSesso != "NON BINARIO");
@@ -72,7 +72,7 @@ namespace Esercizio_finale_BE_S1_M4
 
                 if (!double.TryParse(inputReddito, out reddito) || reddito < 0)
                 {
-                    Console.WriteLine("Scelta non valida. Inserire un numero positivo.");
+                    Console.WriteLine("\n" + "Scelta non valida. Inserire un numero positivo." + "\n");
                 }
             } while (reddito <= 0);
 
@@ -83,17 +83,18 @@ namespace Esercizio_finale_BE_S1_M4
                 DataNascita = inputData,
                 CodiceFiscale = inputCodice,
                 Sesso = inputSesso,
-                Residenza = inputResidenza,
-                Reddito = reddito
+                ComuneResidenza = inputResidenza,
+                RedditoAnnuale = reddito
             };
 
             return nuovoContribuente;
         }
 
         /*
-         * Summary: Mostra il menù, sia all'inizio, sia dopo che sono state eseguite le funzioni CalcolaImposta e ListaContribuenti
+         * Summary: Mostra il menù, sia all'inizio, sia dopo che sono state eseguite le altre funzioni e procedure
          * Parameters: nessun parametro d'ingresso
          * Return: nessun valore di ritorno
+         * Extra; aggiunte 2 voci per le aggiunte exrea compito
         */
         public static void Menu()
         {
@@ -105,9 +106,10 @@ namespace Esercizio_finale_BE_S1_M4
                 Console.WriteLine("                 M E N U                 ");
                 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++");
                 Console.WriteLine("1) Inserimento di un nuovo contribuente");
-                Console.WriteLine("2) La lista dei contribuenti ");
+                Console.WriteLine("2) Lista dei contribuenti ");
                 Console.WriteLine("3) Modifica dati contribuente");
-                Console.WriteLine("4) Esci dal programma");
+                Console.WriteLine("4) Media Redditi e Imposte Contribuenti");
+                Console.WriteLine("5) Esci dal programma");
                 Console.ResetColor();
                 Console.WriteLine("\n" + "Scegli un opzione:");
                 
@@ -117,7 +119,7 @@ namespace Esercizio_finale_BE_S1_M4
                     switch (scelta)
                     {
                         case 1:
-                            Console.WriteLine("\n" + "Opzione 1");
+                            Console.WriteLine("\n" + "Opzione 1: Inserimento di un nuovo contribuente");
                             Contribuente nuovoContribuente = DatiContribuente();
                             if (nuovoContribuente != null)
                             {
@@ -129,14 +131,15 @@ namespace Esercizio_finale_BE_S1_M4
                             Console.ReadLine();
                             break;
                         case 2:
-                            Console.WriteLine("\n" + "Opzione 2");
+                            // Extra rispetto al compito, possibilità di vedere la lista dei contribuenti in ordine alfabetico per nome o cognome
+                            Console.WriteLine("\n" + "Opzione 2: Lista Contribuenti");
                             ListaContribuenti();
                             Console.WriteLine("\n" + "Premere Invio per tornare al menu");
                             Console.ReadLine();
                             break;        
                         case 3:
-                            // Extra rispetto al compito, da la possibilità do cercare i contribuenti e poi modificarli e cancellarli, aggiunta per la ricerca il ToLower altrimenti non avrebbe avuto riscontro con maiuscole e minuscole diverse
-                            Console.WriteLine("\n" + "Opzione 4: Modifica Contribuente");
+                            // Extra rispetto al compito, da la possibilità di cercare i contribuenti e poi modificarli e cancellarli (tramite ModificaContribuente), aggiunta per la ricerca il ToLower altrimenti non avrebbe avuto riscontro con maiuscole e minuscole diverse
+                            Console.WriteLine("\n" + "Opzione 3: Modifica Contribuente");
                             Console.WriteLine("Inserire il codice fiscale del contribuente da modificare:");
                             string codiceFiscaleModifica = Console.ReadLine().ToLower();
                             Contribuente contribuenteDaModificare = listaContribuenti.Find(c => c.CodiceFiscale.ToLower() == codiceFiscaleModifica);
@@ -154,8 +157,39 @@ namespace Esercizio_finale_BE_S1_M4
                             Console.ReadLine();
                             break;
                         case 4:
-                            Console.WriteLine("\n" + "Opzione 3: Uscita dal programma." + "\n");
-                            return;
+                            // Extra rispetto al compito, da la possibilità di vedere le medie dei redditi, delle imposte dovute e il numero di contribuenti (tramite CalcolaMedia)
+                            Console.WriteLine("\n" + "Opzione 4: Media Redditi e Imposte Contribuenti");
+                            CalcolaMedie();
+                            Console.WriteLine("\n" + "Premere Invio per tornare al menu");
+                            Console.ReadLine();
+                            break;
+                        case 5:
+                            // aggiunta conferma d'uscita dall'applicazione 
+                            Console.WriteLine("\n" + "Opzione 5: Uscita dal programma." + "\n");
+                            bool rispostaValida = false;
+                            while (!rispostaValida)
+                            {
+                                Console.WriteLine("Sei sicuro di voler uscire ?");
+                                Console.WriteLine("1) Si");
+                                Console.WriteLine("2) No");
+                                string esci = Console.ReadLine();
+
+                                switch (esci.ToLower())
+                                {
+                                    case "1":
+                                    case "si":
+                                        return;
+                                    case "2":
+                                    case "no":
+                                        rispostaValida = true;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Opzione non valida, riprovare" + "\n");
+                                        break;
+                                }
+                            }
+                            break;
+
                         default:
                             
                             Console.WriteLine("\n" + "Opzione non valida, riprovare" + "\n");
@@ -164,7 +198,7 @@ namespace Esercizio_finale_BE_S1_M4
                 }
                 else
                 {
-                    Console.WriteLine("Opzione non valida, riprovare");
+                    Console.WriteLine("Opzione non valida, riprovare ");
                 }
             }
 
@@ -178,7 +212,7 @@ namespace Esercizio_finale_BE_S1_M4
         */
         public static void CalcolaImposta(Contribuente contribuente)
         {
-            double reddito = contribuente.Reddito;
+            double reddito = contribuente.RedditoAnnuale;
 
             if (reddito <= 15000)
             {
@@ -204,15 +238,16 @@ namespace Esercizio_finale_BE_S1_M4
             Console.WriteLine("\n" + $"CALCOLO DELL’IMPOSTA DA VERSARE:");
             Console.WriteLine($"Contribuente: {contribuente.Nome} {contribuente.Cognome},");
             Console.WriteLine($"Nato il {contribuente.DataNascita} ({contribuente.Sesso}),");
-            Console.WriteLine($"Residente in {contribuente.Residenza},");
+            Console.WriteLine($"Residente in {contribuente.ComuneResidenza},");
             Console.WriteLine($"Codice fiscale: {contribuente.CodiceFiscale}");
-            Console.WriteLine($"Reddito dichiarato: EURO {contribuente.Reddito}");
+            Console.WriteLine($"Reddito dichiarato: EURO {contribuente.RedditoAnnuale}");
             Console.ForegroundColor = ConsoleColor.Red;  
             Console.WriteLine($"IMPOSTA DA VERSARE: EURO {contribuente.ImpostaDovuta}");                                           // colore imposta da versare messo in rosso
             Console.ResetColor();
 
         }
-        /*
+        /* Aggiunta Extra rispetto alla consegna
+          
            * Summary: mostra la lista dei contribuenti con tutti i dati e l'imposta dovuta che è stata calcolata precedentemente
            * Parameters: nessun parametro d'ingresso
            * Return: nessun valore di ritorno
@@ -224,7 +259,7 @@ namespace Esercizio_finale_BE_S1_M4
             // Qui il codice per ordinare i contribuenti in ordine alfabetico per nome o cognome
             Console.WriteLine("\n" + "Ordina per:");
             Console.WriteLine("1) Nome");
-            Console.WriteLine("2) Cognome");
+            Console.WriteLine("2) Cognome" + "\n");
 
             if (int.TryParse(Console.ReadLine(), out int scelta))
             {
@@ -232,9 +267,33 @@ namespace Esercizio_finale_BE_S1_M4
                 {
                     case 1:
                         listaContribuenti.Sort((x, y) => string.Compare(x.Nome, y.Nome, StringComparison.OrdinalIgnoreCase));
+                        foreach (var contribuente in listaContribuenti)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\n" + $"Contribuente: {contribuente.Nome} {contribuente.Cognome},");
+                            Console.WriteLine($"Nato il {contribuente.DataNascita} ({contribuente.Sesso}),");
+                            Console.WriteLine($"Residente in {contribuente.ComuneResidenza},");
+                            Console.WriteLine($"Codice fiscale: {contribuente.CodiceFiscale}");
+                            Console.WriteLine($"Reddito dichiarato: EURO {contribuente.RedditoAnnuale}");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"IMPOSTA DA VERSARE: EURO {contribuente.ImpostaDovuta}");                                       // colore imposta da versare messo in rosso    
+                            Console.ResetColor();
+                        }
                         break;
                     case 2:
                         listaContribuenti.Sort((x, y) => string.Compare(x.Cognome, y.Cognome, StringComparison.OrdinalIgnoreCase));
+                        foreach (var contribuente in listaContribuenti)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\n" + $"Contribuente: {contribuente.Nome} {contribuente.Cognome},");
+                            Console.WriteLine($"Nato il {contribuente.DataNascita} ({contribuente.Sesso}),");
+                            Console.WriteLine($"Residente in {contribuente.ComuneResidenza},");
+                            Console.WriteLine($"Codice fiscale: {contribuente.CodiceFiscale}");
+                            Console.WriteLine($"Reddito dichiarato: EURO {contribuente.RedditoAnnuale}");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"IMPOSTA DA VERSARE: EURO {contribuente.ImpostaDovuta}");                                       // colore imposta da versare messo in rosso    
+                            Console.ResetColor();
+                        }
                         break;
                 
                     default:
@@ -246,18 +305,7 @@ namespace Esercizio_finale_BE_S1_M4
             {
                 Console.WriteLine("Input non valido. Inserire un numero.");
             }
-            foreach (var contribuente in listaContribuenti)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n" + $"Contribuente: {contribuente.Nome} {contribuente.Cognome},");
-                Console.WriteLine($"Nato il {contribuente.DataNascita} ({contribuente.Sesso}),");
-                Console.WriteLine($"Residente in {contribuente.Residenza},");
-                Console.WriteLine($"Codice fiscale: {contribuente.CodiceFiscale}");
-                Console.WriteLine($"Reddito dichiarato: EURO {contribuente.Reddito}");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"IMPOSTA DA VERSARE: EURO {contribuente.ImpostaDovuta}");                                       // colore imposta da versare messo in rosso    
-                Console.ResetColor();
-            }
+           
         }
 
       /*
@@ -277,8 +325,8 @@ namespace Esercizio_finale_BE_S1_M4
             Console.WriteLine($"Cognome: {Cognome}");
             Console.WriteLine($"Data di nascita: {DataNascita}");
             Console.WriteLine($"Codice Fiscale: {CodiceFiscale}");
-            Console.WriteLine($"Residenza: {Residenza}");
-            Console.WriteLine($"Reddito: {Reddito}");
+            Console.WriteLine($"Residenza: {ComuneResidenza}");
+            Console.WriteLine($"Reddito: {RedditoAnnuale}");
 
             Console.WriteLine("\n" + "Modifica contribuente:");
             Console.WriteLine("1) Modifica Nome");
@@ -334,7 +382,7 @@ namespace Esercizio_finale_BE_S1_M4
                         break;
                     case 6:
                         Console.WriteLine("Nuova Residenza:");
-                        Residenza = Console.ReadLine();
+                        ComuneResidenza = Console.ReadLine();
                         break;
                     case 7:
                         // anche questo do while arriva come conseguenza del rispettivo modificato sopra 
@@ -343,7 +391,7 @@ namespace Esercizio_finale_BE_S1_M4
                             string inputReddito = Console.ReadLine();
                             if (double.TryParse(inputReddito, out double nuovoReddito) && nuovoReddito > 0)
                             {
-                                Reddito = nuovoReddito;
+                                RedditoAnnuale = nuovoReddito;
                                 break; 
                             }
                             else
@@ -353,7 +401,7 @@ namespace Esercizio_finale_BE_S1_M4
                            } while (true);
                         break;
                     case 8:
-                        Console.WriteLine("Sei sicuro di voler cancellare il contribuente? (S/N)");
+                        Console.WriteLine("\n" + "Sei sicuro di voler cancellare il contribuente? (S/N)");
                         if (Console.ReadLine().ToUpper() == "S")
                         {
                             listaContribuenti.Remove(this);
@@ -372,6 +420,44 @@ namespace Esercizio_finale_BE_S1_M4
             else
             {
                 Console.WriteLine("Scelta non valida. Inserire il numero di un opzione disponibile.");
+            }
+        }
+
+        /*
+             * Aggiunta Extra rispetto alla consegna  
+
+             * Summary: ci permette di vedere le medie di reddito e di imposte da versare dei Contribuenti 
+             * Parameters: nessun parametro in ingresso
+             * Return: restituisce la media dei redditi, delle imposte e il numero di contribuenti
+        */
+        public static void CalcolaMedie()
+        {
+            if (listaContribuenti.Count == 0)
+            {
+                Console.WriteLine("Nessun contribuente presente nella lista.");
+            }
+            else
+            {
+                double sommaRedditi = 0;
+                double sommaImposte = 0;
+
+                foreach (var contribuente in listaContribuenti)
+                {
+                    sommaRedditi += contribuente.RedditoAnnuale;
+                }
+
+                double mediaRedditi = sommaRedditi / listaContribuenti.Count;
+
+                foreach (var contribuente in listaContribuenti)
+                {
+                    sommaImposte += contribuente.ImpostaDovuta;
+                }
+
+                double mediaImposte = sommaImposte / listaContribuenti.Count;
+
+                Console.WriteLine($"Numero dei contribuenti: {listaContribuenti.Count}");
+                Console.WriteLine($"Media dei redditi: {mediaRedditi}");
+                Console.WriteLine($"Media delle imposte dovute: {mediaImposte}");
             }
         }
     }
