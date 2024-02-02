@@ -1,0 +1,7 @@
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\bin\Debug\Esercizio_finale_BE_S1_M4.exe.config
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\bin\Debug\Esercizio_finale_BE_S1_M4.exe
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\bin\Debug\Esercizio_finale_BE_S1_M4.pdb
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\obj\Debug\Esercizio_finale_BE_S1_M4.csproj.AssemblyReference.cache
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\obj\Debug\Esercizio_finale_BE_S1_M4.csproj.CoreCompileInputs.cache
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\obj\Debug\Esercizio_finale_BE_S1_M4.exe
+C:\Users\Alessandro\Desktop\Back-end\Mese 1\Settimana 1\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\Esercizio_finale_BE_S1_M4\obj\Debug\Esercizio_finale_BE_S1_M4.pdb
